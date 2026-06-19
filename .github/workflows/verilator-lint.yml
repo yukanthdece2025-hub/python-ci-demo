@@ -1,0 +1,23 @@
+name: Verilator Lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Custom Verilator Action
+        id: lint
+        uses: yukanthdece2025-hub/github-verilator-lint-action@v1
+
+        with:
+          files: "alu.sv,counter.sv"
+          severity: "warning"
+
+      - name: Show Results
+        run: echo '${{ steps.lint.outputs.results }}'
